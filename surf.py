@@ -1,5 +1,4 @@
 import cv2
-import imutils
 
 #Create object to read images from camera 0
 cam = cv2.VideoCapture(0)
