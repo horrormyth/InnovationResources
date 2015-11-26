@@ -48,7 +48,7 @@ while True:
 
     else:
         print 'Not enough matches found - %d/%d' % (len(good_Matches),MIN_MATCH_COUNT)
-        matches_Mask = None
+        # matches_Mask = None
 
 
     # cv2.imshow('camera',result)
