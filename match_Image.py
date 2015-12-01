@@ -3,6 +3,7 @@ __author__ = 'devndraghimire'
 import numpy as np
 import cv2
 
+MIN_MATCH_COUNT =10
 
 orb = cv2.ORB_create()
 #video capture
@@ -32,9 +33,10 @@ while True:
         if matcha.distance < 0.75 * matchb.distance:
             best_Match.append([matcha])
 
-    # Traces the matches only, not the best match -- tracing best matches
 
-    # TO-DO
+    # TODO Find Best match keypoint and descriptors within the MIN_MATCH_COUNT
+
+
 
     finalimage= cv2.drawMatchesKnn(def_Image,kp_image,gray_Vid,kp_Vid,allmatch,None,flags=2)
     cv2.imshow('win',finalimage)
