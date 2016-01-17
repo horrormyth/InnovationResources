@@ -6,7 +6,7 @@ camera = cv2.VideoCapture(0)
 orb = cv2.ORB_create()
 bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 
-imgTrainColor=cv2.imread('Karhu.png')
+imgTrainColor=cv2.imread('stadium.jpeg')
 imgTrainGray = cv2.cvtColor(imgTrainColor, cv2.COLOR_BGR2GRAY)
 
 kpTrain = orb.detect(imgTrainGray,None)
@@ -20,11 +20,12 @@ while True:
     imgCamGray = cv2.cvtColor(imgCamColor, cv2.COLOR_BGR2GRAY)
     kpCam = orb.detect(imgCamGray,None)
     kpCam, desCam = orb.compute(imgCamGray, kpCam)
-    print len(desCam)
-    print len(desTrain)
+    # print len(desCam)
+    # print len(desTrain)
     matches = bf.match(desCam,desTrain)
     dist = [m.distance for m in matches]
     thres_dist = (sum(dist) / len(dist)) * 0.5
+    print thres_dist
     matches = [m for m in matches if m.distance < thres_dist]
 
     if firsttime==True:
@@ -36,6 +37,7 @@ while True:
         firsttime=False
 
     result = np.zeros((nHeight, nWidth, 3), np.uint8)
+    print result
     result[hdif:hdif+h2, :w2] = imgTrainColor
     result[:h1, w2:w1+w2] = imgCamColor
 

@@ -9,7 +9,7 @@ orb = cv2.ORB_create()
 #video capture
 capture = cv2.VideoCapture(0)
 #start image processing
-def_Image = cv2.imread('images.jpeg')
+def_Image = cv2.imread('tert.jpg')
 changeto_Gray = cv2.cvtColor(def_Image,cv2.COLOR_BGR2GRAY)
 kp_image,des_image = orb.detectAndCompute(changeto_Gray,None)
 
@@ -38,11 +38,9 @@ while True:
 
 
 
-    finalimage= cv2.drawMatchesKnn(def_Image,kp_image,gray_Vid,kp_Vid,allmatch,None,flags=2)
-    cv2.imshow('win',finalimage)
-
-
-
-
-
-
+    finalimage= cv2.drawMatchesKnn(def_Image,kp_image,gray_Vid,kp_Vid,best_Match,None,flags=2)
+    cv2.namedWindow('image', cv2.WINDOW_NORMAL)
+    cv2.imshow('Comparison',finalimage)
+    # Use Esc to Quit
+    if cv2.waitKey(10) == 27:
+        break

@@ -13,7 +13,7 @@ capture = cv2.VideoCapture(0)
 def_Image = cv2.imread('tert.jpg')
 changeto_Gray = cv2.cvtColor(def_Image, cv2.COLOR_BGR2GRAY)
 kp_image,des_image = orb.detectAndCompute(changeto_Gray,None)
-
+bfmatcher = cv2.BFMatcher()
 
 #For video
 while True:
@@ -25,7 +25,7 @@ while True:
     kp_Vid, des_Vid = orb.detectAndCompute(gray_Vid,None)
 
     # matches by bruteforce matcher using knn algorithm
-    bfmatcher = cv2.BFMatcher()
+
     allmatch = bfmatcher.knnMatch(des_image,des_Vid,k=2)
 
     # put the matches in Array having the match distance satisfied by 75 %
@@ -56,7 +56,12 @@ while True:
         print 'Not enough matches Found- %d/%d' % (len(good_Match),MIN_MATCH_COUNT)
         matched_Mask = None
 
-    finalimage= cv2.drawMatchesKnn(def_Image,kp_image,vid_Image,kp_Vid,allmatch,None, flags=2)
+    # draw_params = dict(matchColor = (0,255,0),
+    #                singlePointColor = (255,255,0),
+    #                matchesMask = matched_Mask,
+    #                flags = 2)
+
+    finalimage= cv2.drawMatchesKnn(def_Image,kp_image,vid_Image,kp_Vid,allmatch,None,flags=2)
     cv2.imshow('win',finalimage)
 
     if cv2.waitKey(10) == 27:
