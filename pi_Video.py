@@ -17,8 +17,7 @@ bfmatcher = cv2.BFMatcher()
 
 #(2) pi Camera Initialize
 capture = PiCamera()
-capture.resolution = ()
-capture.framerate =(1072,768)
+capture.resolution = (1072,768)
 capture.framerate = 32
 raw_Capture = PiRGBArray(capture, size=(1024,768))
 
