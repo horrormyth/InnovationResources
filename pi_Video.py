@@ -4,7 +4,6 @@ import cv2
 import numpy as np
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-import time
 
 MIN_MATCH_COUNT =10
 orb=cv2.ORB_create()
@@ -27,7 +26,6 @@ for frame in capture.capture_continuous(raw_Capture,format='bgr',use_video_port=
     vid = frame.array
     gray_Vid = cv2.cvtColor(vid,cv2.COLOR_BGR2GRAY)
     kp_Vid, des_Vid = orb.detectAndCompute(gray_Vid,None)
-    print des_Vid
     allmatch = bfmatcher.knnMatch(des_image,des_Vid,k=2)
 
 # (4) 75 % of match
