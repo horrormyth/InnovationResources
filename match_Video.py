@@ -19,11 +19,11 @@ bfmatcher = cv2.BFMatcher()
 while True:
     # Frame retrieving
     ret, vid_Image = capture.read()
+    print ret
     gray_Vid = cv2.cvtColor(vid_Image,cv2.COLOR_BGR2GRAY)
 
     # Keypoint and Descriptors
     kp_Vid, des_Vid = orb.detectAndCompute(gray_Vid,None)
-
     # matches by bruteforce matcher using knn algorithm
 
     allmatch = bfmatcher.knnMatch(des_image,des_Vid,k=2)

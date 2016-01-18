@@ -15,22 +15,19 @@ kp_image, des_image = orb.detectAndCompute(changeto_Gray,None)
 # end (1)
 bfmatcher = cv2.BFMatcher()
 
-#(2) pi Camera Initialize
+#(2) pi Camera Initialize2
 capture = PiCamera()
-capture.resolution = (1072,768)
+capture.resolution = (640,480)
 capture.framerate = 32
-raw_Capture = PiRGBArray(capture, size=(1024,768))
+raw_Capture = PiRGBArray(capture, size=(640,480))
 
 #(3) Frame Capture
-for frame in capture.capture_continuous(
-        raw_Capture,
-        format='bgr',
-        use_video_port=True
-        ):
+for frame in capture.capture_continuous(raw_Capture,format='bgr',use_video_port=True):
 # (3) read video and convert
     vid = frame.array
     gray_Vid = cv2.cvtColor(vid,cv2.COLOR_BGR2GRAY)
     kp_Vid, des_Vid = orb.detectAndCompute(gray_Vid,None)
+    print des_Vid
     allmatch = bfmatcher.knnMatch(des_image,des_Vid,k=2)
 
 # (4) 75 % of match
@@ -59,5 +56,6 @@ for frame in capture.capture_continuous(
 
     finalimage = cv2.drawMatchesKnn(def_image,kp_image,vid,kp_Vid,allmatch,None,flags=2)
     cv2.imshow('win',finalimage)
+    raw_Capture.truncate(0) #fllush and make ready for another frame
     if cv2.waitKey(10) == 27:
         break
